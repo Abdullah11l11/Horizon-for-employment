@@ -212,7 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
           sessionStorage.setItem(
             "user-info",
             JSON.stringify({
-              name: snapShot.val().companyName,
+              companyName: snapShot.val().companyName,
               email: snapShot.val().email,
               day: snapShot.val().day ? snapShot.val().day : "",
               month: snapShot.val().month ? snapShot.val().month : "",
@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
               vacant: snapShot.val().vacant ? snapShot.val().vacant : "",
               profilePhotoSrc: snapShot.val().profilePhotoSrc
                 ? snapShot.val().profilePhotoSrc
-                : 'https://firebasestorage.googleapis.com/v0/b/horizon-9d7e5.appspot.com/o/assents%2FPale%20Dots%20Profile%201x1%20II%20(1).png?alt=media&token=598343c0-66dc-4d5c-98c9-b717eef6f47c',
+                : "https://firebasestorage.googleapis.com/v0/b/horizon-9d7e5.appspot.com/o/assents%2FPale%20Dots%20Profile%201x1%20II%20(1).png?alt=media&token=598343c0-66dc-4d5c-98c9-b717eef6f47c",
             })
           );
           window.location.href = "./main.html";
