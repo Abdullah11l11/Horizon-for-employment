@@ -425,9 +425,21 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
   color: #2784FC;
   padding: 10px 20px;
 }
+.personal-data .data-box .profile .user-info .upload-image label.upload {
+  pointer-events: none;
+  background-color: #9e9e9e;
+  color: #7e7e7e;
+  border-color: #9e9e9e;
+}
+.personal-data .data-box .profile .user-info .upload-image label.upload.active {
+  pointer-events: all;
+  background-color: white;
+  color: #2784FC;
+  border-color: #2784FC;
+}
 .personal-data .data-box .profile .user-info .upload-image label:hover {
-  background-color: #2784FC;
-  color: white;
+  background-color: #2784FC !important;
+  color: white !important;
   transition: 0.3s linear;
   -webkit-transition: 0.3s linear;
   -moz-transition: 0.3s linear;
@@ -435,7 +447,8 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
   -o-transition: 0.3s linear;
 }
 .personal-data .data-box .profile .user-info .upload-image label.clicked {
-  background-color: #0059cb;
+  background-color: #0059cb !important;
+  color: white !important;
 }
 .personal-data .data-box .profile .user-info .upload-image input {
   display: none;

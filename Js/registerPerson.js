@@ -178,9 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   country: snapShot.val().country
                     ? snapShot.val().country
                     : "غير محدد بعد",
-                  gender: snapShot.val().gender
-                    ? snapShot.val().gender
-                    : "",
+                  gender: snapShot.val().gender ? snapShot.val().gender : "",
                   experience: snapShot.val().experience
                     ? snapShot.val().experience
                     : "nothing",
@@ -190,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     : ["غير محدد"],
                   profilePhotoSrc: snapShot.val().profilePhotoSrc
                     ? snapShot.val().profilePhotoSrc
-                    : 'https://firebasestorage.googleapis.com/v0/b/horizon-9d7e5.appspot.com/o/assents%2FPale%20Dots%20Profile%201x1%20II%20(1).png?alt=media&token=598343c0-66dc-4d5c-98c9-b717eef6f47c',
+                    : "https://firebasestorage.googleapis.com/v0/b/horizon-9d7e5.appspot.com/o/assents%2FPale%20Dots%20Profile%201x1%20II%20(1).png?alt=media&token=598343c0-66dc-4d5c-98c9-b717eef6f47c",
                 })
               );
               sessionStorage.setItem(
@@ -199,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
               );
               sessionStorage.setItem("user-state", "person");
 
-              window.location.href = "./main.html";
+              window.location.href = "../main.html";
             }
             console.log(snapShot);
           }

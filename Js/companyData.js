@@ -8,7 +8,6 @@ import {
   child,
   get,
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyADEmscq_IJwgregiKOgC0BJY0kTkWkj0Q",
@@ -31,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const dataList = document.getElementById("location");
   const addVacantBtn = document.querySelector('.vacant [type="button"]');
   const vacantList = document.querySelector(".vacant .vacantList");
-  const vacantInput = document.querySelectorAll(".vacant .vacantList input");
   const saveBtn = document.querySelector('.button [type="button"]');
   const nameInput = document.querySelector(".name input");
   const emailInput = document.querySelector(".email input");
@@ -80,18 +78,17 @@ document.addEventListener("DOMContentLoaded", () => {
     fileItem = e.target.files[0];
     fileName = fileItem.name;
     imageName.textContent = fileName;
+    profileBtn.classList.add("active");
   };
 
   // Upload Photo
 
   const uploadImage = (e) => {
     let storageRef = firebase.storage().ref();
-    let imgaeRef = storageRef.child("company-images/" + fileName);
+    let imgaeRef = storageRef.child("profile-images/" + fileName);
     let uploadTask = imgaeRef.put(fileItem);
-    e.target.classList.add("clicked");
-    setTimeout(() => {
-      e.target.classList.remove("clicked");
-    }, 5000);
+    e.target.classList.remove("active");
+    imageName.textContent = "";
 
     uploadTask.on(
       "state_changed",
@@ -117,15 +114,17 @@ document.addEventListener("DOMContentLoaded", () => {
   /* add Vacant */
 
   const addVacantBtnHandler = () => {
+    const vacantInput = Array.from(vacantList.children);
+    if (vacantInput.length >= 5) {
+      addVacantBtn.classList.add("diseable");
+      return;
+    }
     const input = document.createElement("input");
     input.setAttribute("type", "text");
     input.setAttribute("name", "skills");
     input.setAttribute("placeholder", "الشاغر المطلوب");
     vacantList.appendChild(input);
-    if (vacantInput.length >= 5) {
-      addVacantBtn.classList.add("diseable");
-      return;
-    }
+    console.log(vacantInput);
   };
 
   /* Validate Field*/

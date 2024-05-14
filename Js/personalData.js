@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const dataList = document.getElementById("country");
   const addSkillBtn = document.querySelector('.skills [type="button"]');
   const skillsList = document.querySelector(".skills .skillsList");
-  const skillsInput = document.querySelectorAll(".skills .skillsList input");
   const saveBtn = document.querySelector('.button [type="button"]');
   const nameInput = document.querySelector(".name input");
   const emailInput = document.querySelector(".email input");
@@ -78,6 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fileItem = e.target.files[0];
     fileName = fileItem.name;
     imageName.textContent = fileName;
+    profileBtn.classList.add('active');
   };
 
   // Upload Photo
@@ -86,11 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let storageRef = firebase.storage().ref();
     let imgaeRef = storageRef.child("profile-images/" + fileName);
     let uploadTask = imgaeRef.put(fileItem);
-    e.target.classList.add("clicked");
-    setTimeout(() => {
-      e.target.classList.remove("clicked");
-    }, 5000);
-
+    e.target.classList.remove("active");
+    imageName.textContent = '';
     uploadTask.on(
       "state_changed",
       (snapShot) => {
@@ -115,15 +112,17 @@ document.addEventListener("DOMContentLoaded", () => {
   /* add Skill */
 
   const addSkillBtnHandler = () => {
+    const skillsInput = Array.from(skillsList.children);
+    if (skillsInput.length >= 5) {
+      addSkillBtn.classList.add("diseable");
+      return;
+    }
     const input = document.createElement("input");
     input.setAttribute("type", "text");
     input.setAttribute("name", "skills");
     input.setAttribute("placeholder", "مهارتك");
     skillsList.appendChild(input);
-    if (skillsInput.length >= 5) {
-      addSkillBtn.classList.add("diseable");
-      return;
-    }
+
   };
 
   /* Validate Field */
