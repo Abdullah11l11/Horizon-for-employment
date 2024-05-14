@@ -217,8 +217,8 @@ document.addEventListener("DOMContentLoaded", () => {
               day: snapShot.val().day ? snapShot.val().day : "",
               month: snapShot.val().month ? snapShot.val().month : "",
               year: snapShot.val().year ? snapShot.val().year : "",
-              location: snapShot.val().location ? snapShot.val().location : "",
               scope: snapShot.val().scope ? snapShot.val().scope : "",
+              location: snapShot.val().location ? snapShot.val().location : "",
               description: snapShot.val().description
                 ? snapShot.val().description
                 : "",
