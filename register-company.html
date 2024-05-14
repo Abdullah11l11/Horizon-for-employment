@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <title>أفق</title>
+  <link rel="stylesheet" href="./CSS/all.min.css">
+  <link rel="stylesheet" href="./CSS/register-company.css">
+</head>
+
+<body>
+
+  <div class="form">
+    <div class="caption">
+      <div><img src="https://firebasestorage.googleapis.com/v0/b/horizon-9d7e5.appspot.com/o/assents%2FLogo-ar.png?alt=media&token=4e4749e7-8b58-4505-b73e-0da9c96024be" alt=""></div>
+      <p>أعثر على موظفيك بموثوقية و سرعة ...</p>
+    </div>
+    <div class="container">
+      <div class="form-holder">
+        <form class="sign-in">
+          <!-- <div> -->
+          <h2>تسجيل دخول</h2>
+          <h2 class="rotate-h">تسجيل دخول</h2>
+          <div class="inputs">
+            <input type="email" id="email-sign" placeholder="البريد الإلكتروني الخاص بالشركة" />
+            <input type='password' id="password-sign" min="3" max="15" placeholder="كلمة السر" />
+            <div class="button">
+              <input type="reset" value="البدء من جديد" />
+              <input type="submit" value="تسجيل الدخول" />
+            </div>
+          </div>
+        </form>
+        <form method="POST" class="register">
+          <h2>إنشاء حساب</h2>
+          <h2 class="rotate-h">إنشاء حساب</h2>
+          <div class="inputs">
+            <input type="text" min="3" max="15" id="company-name" placeholder="اسم الشركة" />
+            <input type="email" id="email-register" placeholder="البريد الإلكتروني الخاص بالشركة" />
+            <input type='password' id="password-register" min="3" max="15" placeholder="كلمة السر" />
+            <div class="button">
+              <input type="reset" value="البدء من جديد" />
+              <input type="submit" value="انشاء حسابي" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</body>
+<script src="./Js/all.min.js"></script>
+<script src="./Js/registerCompany.js" type="module"></script>
+
+</html>

@@ -1,0 +1,219 @@
+/*import Global Rules*/
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --main-color: #2784fc;
+  --alt-color: #0663d1;
+  --logo-color: #ffd42a;
+  --background: #ffff;
+}
+
+body {
+  direction: rtl;
+  font-family: "Tajawal", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+ul {
+  list-style: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+@media (max-width: 767px) {
+  .container {
+    width: 100%;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* width & height */
+::-webkit-scrollbar-track {
+  background-color: #f6f6f6;
+  box-shadow: 0 0 10px #ccc inset;
+}
+
+/* the scroll in back */
+::-webkit-scrollbar-thumb {
+  background-color: rgba(39, 131, 252, 0.6392156863);
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+/* the scroll is moving */
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--main-color);
+}
+@keyframes skew-effect {
+  to {
+    transform: translate(-30%) skew(10deg, 0);
+    -webkit-transform: translate(-30%) skew(10deg, 0);
+    -moz-transform: translate(-30%) skew(10deg, 0);
+    -ms-transform: translate(-30%) skew(10deg, 0);
+    -o-transform: translate(-30%) skew(10deg, 0);
+  }
+}
+@keyframes skew-effect-2 {
+  to {
+    transform: translate(-30%) skew(0, 10deg);
+    -webkit-transform: translate(-30%) skew(0, 10deg);
+    -moz-transform: translate(-30%) skew(0, 10deg);
+    -ms-transform: translate(-30%) skew(0, 10deg);
+    -o-transform: translate(-30%) skew(0, 10deg);
+  }
+}
+@keyframes opacity {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes up_down {
+  0%, 100% {
+    transform: translateY(-50px);
+    -webkit-transform: translateY(-50px);
+    -moz-transform: translateY(-50px);
+    -ms-transform: translateY(-50px);
+    -o-transform: translateY(-50px);
+  }
+  50% {
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+  }
+}
+body {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.container::after {
+  content: "";
+  width: 300%;
+  height: 100%;
+  background-color: #2784FC;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  transform: translateX(-50%) skew(0, -10deg);
+  -webkit-transform: translateX(-50%) skew(0, -10deg);
+  -moz-transform: translateX(-50%) skew(0, -10deg);
+  -ms-transform: translateX(-50%) skew(0, -10deg);
+  -o-transform: translateX(-50%) skew(0, -10deg);
+  animation: skew-effect 8s infinite alternate;
+  -webkit-animation: skew-effect 8s infinite alternate;
+  z-index: -1;
+}
+.container .main {
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  background-color: #2784FC;
+  padding: 2rem;
+}
+.container .main h2 {
+  color: white;
+  font-size: 2rem;
+}
+.container .main > p {
+  font-size: 1.4rem;
+  color: white;
+  margin-top: 1rem;
+  margin-bottom: 4rem;
+}
+.container .main .parent {
+  display: flex;
+  gap: 5rem;
+}
+.container .main .parent .child {
+  display: flex;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  color: #2784FC;
+  flex-direction: column;
+  border: 2px solid #FFD42A;
+  gap: 1rem;
+  cursor: pointer;
+  transition: 0.3s linear;
+  -webkit-transition: 0.3s linear;
+  -moz-transition: 0.3s linear;
+  -ms-transition: 0.3s linear;
+  -o-transition: 0.3s linear;
+}
+.container .main .parent .child .icon {
+  font-size: 4rem;
+}
+.container .main .parent .child:hover {
+  background-color: #2784FC;
+  color: white;
+  border-color: white;
+}
+
+@media (max-width: 767px) {
+  .container::after {
+    display: none;
+  }
+}/*# sourceMappingURL=login-choosen.css.map */
