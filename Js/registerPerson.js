@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
               );
               sessionStorage.setItem("user-state", "person");
 
-              window.location.href = "../main.html";
+              window.location.href = "./main.html";
             }
             console.log(snapShot);
           }
