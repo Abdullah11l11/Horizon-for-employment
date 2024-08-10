@@ -1,5 +1,4 @@
 /* Import Firebase */
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
 import {
   getDatabase,
@@ -8,6 +7,12 @@ import {
   child,
   get,
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+import {
+  getStorage,
+  ref as storageRef,
+  uploadBytes,
+  getDownloadURL,
+} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyADEmscq_IJwgregiKOgC0BJY0kTkWkj0Q",
@@ -19,10 +24,12 @@ const firebaseConfig = {
   appId: "1:1010075013458:web:ec26bbd69fc1a2a34a2a8b",
 };
 
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const db = getDatabase();
+const storage = getStorage(app);
 
 document.addEventListener("DOMContentLoaded", () => {
-  /* Variable */
+  /* Variables */
   const imageName = document.querySelector(".image-name");
   const profilePhoto = document.querySelector(".profile-photo");
   const profilePhotoInput = document.getElementById("file");
@@ -43,14 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const scopeInput = document.querySelector(".scope input");
   const signoutBtn = document.querySelector('.log .link [type="button"]');
 
-  /* For Firebase */
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase();
-  const dbref = ref(db);
-
   /* Company Data */
-
   let {
     companyName,
     email,
@@ -64,16 +64,14 @@ document.addEventListener("DOMContentLoaded", () => {
     profilePhotoSrc,
   } = JSON.parse(sessionStorage.getItem("user-info"));
 
-  // for Get Profile Photo
-
+  // For Get Profile Photo
   let fileItem;
   let fileName;
   let profilePhotoURL;
 
-  /*Functions*/
+  /* Functions */
 
   // Get Photo
-
   const getFile = (e) => {
     fileItem = e.target.files[0];
     fileName = fileItem.name;
@@ -82,41 +80,35 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Upload Photo
-
   const uploadImage = (e) => {
-    let storageRef = firebase.storage().ref();
-    let imgaeRef = storageRef.child("profile-images/" + fileName);
-    let uploadTask = imgaeRef.put(fileItem);
+    const imageRef = storageRef(storage, "profile-images/" + fileName);
+    const uploadTask = uploadBytes(imageRef, fileItem);
+
     e.target.classList.remove("active");
     imageName.textContent = "";
 
-    uploadTask.on(
-      "state_changed",
-      (snapShot) => {
-        console.log(snapShot);
-      },
-      (error) => {
-        console.log("Error is ", error);
-      },
-      () => {
-        uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+    uploadTask
+      .then((snapshot) => {
+        getDownloadURL(snapshot.ref).then((url) => {
           console.log("URL", url);
-
           if (url !== "") {
+            console.log(profilePhoto);
             profilePhoto.setAttribute("src", url);
             profilePhotoURL = url;
+            console.log(profilePhoto);
           }
         });
-      }
-    );
+      })
+      .catch((error) => {
+        console.log("Error is ", error);
+      });
   };
 
-  /* add Vacant */
-
+  // Add Vacant
   const addVacantBtnHandler = () => {
     const vacantInput = Array.from(vacantList.children);
     if (vacantInput.length >= 5) {
-      addVacantBtn.classList.add("diseable");
+      addVacantBtn.classList.add("disable");
       return;
     }
     const input = document.createElement("input");
@@ -127,22 +119,18 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(vacantInput);
   };
 
-  /* Validate Field*/
-
+  // Validate Field
   const validateField = (field) => {
-    if (field.trim() == null) return false;
-    else if (field.trim().length <= 0) return false;
-    else return true;
+    return field.trim() !== "";
   };
 
-  /* Generate Countries List */
-
+  // Generate Countries List
   const countriesList = () => {
     fetch("https://horizon-9d7e5-default-rtdb.firebaseio.com/counties.json")
-      .then((respone) => respone.json())
+      .then((response) => response.json())
       .then((data) => {
-        data.map((location) => {
-          let option = document.createElement("option");
+        data.forEach((location) => {
+          const option = document.createElement("option");
           option.value = location["nameAr"];
           option.textContent = location["nameAr"];
           dataList.appendChild(option);
@@ -150,8 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   };
 
-  /*Set Data in Form*/
-
+  // Set Data in Form
   const setData = () => {
     nameInput.value = companyName;
     emailInput.value = email;
@@ -164,19 +151,18 @@ document.addEventListener("DOMContentLoaded", () => {
     profilePhoto.setAttribute("src", profilePhotoSrc);
 
     if (vacant.length !== 0) {
-      for (let i = 0; i < vacant.length; i++) {
+      vacant.forEach((vacantItem) => {
         const input = document.createElement("input");
         input.setAttribute("type", "text");
         input.setAttribute("name", "skills");
         input.setAttribute("placeholder", "الشاغر المطلوب");
-        input.setAttribute("value", vacant[i]);
+        input.setAttribute("value", vacantItem);
         vacantList.appendChild(input);
-      }
+      });
     }
   };
 
-  /* Save Date */
-
+  // Save Data
   const onSave = (e) => {
     e.preventDefault();
     if (
@@ -187,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("يرجى ادخال الاسم او الموقع او المجال");
       return;
     }
-    let vacant = document.querySelectorAll(".vacantList input");
+    const vacant = document.querySelectorAll(".vacantList input");
     const vacantValues = Array.from(vacant)
       .map((vacant) => vacant.value)
       .filter((vacant) => vacant.trim() !== "");
@@ -205,62 +191,47 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     const { uid } = JSON.parse(sessionStorage.getItem("user-creds"));
     set(ref(db, "CompanyAuthList/" + uid), info).then(() => {
-      get(child(dbref, "CompanyAuthList/" + uid)).then((snapShot) => {
-        console.log(snapShot);
+      get(child(ref(db), "CompanyAuthList/" + uid)).then((snapShot) => {
         if (snapShot.exists) {
           sessionStorage.setItem(
             "user-info",
             JSON.stringify({
               companyName: snapShot.val().companyName,
               email: snapShot.val().email,
-              day: snapShot.val().day ? snapShot.val().day : "",
-              month: snapShot.val().month ? snapShot.val().month : "",
-              year: snapShot.val().year ? snapShot.val().year : "",
-              scope: snapShot.val().scope ? snapShot.val().scope : "",
-              location: snapShot.val().location ? snapShot.val().location : "",
-              description: snapShot.val().description
-                ? snapShot.val().description
-                : "",
-              vacant: snapShot.val().vacant ? snapShot.val().vacant : "",
-              profilePhotoSrc: snapShot.val().profilePhotoSrc
-                ? snapShot.val().profilePhotoSrc
-                : "https://firebasestorage.googleapis.com/v0/b/horizon-9d7e5.appspot.com/o/assents%2FPale%20Dots%20Profile%201x1%20II%20(1).png?alt=media&token=598343c0-66dc-4d5c-98c9-b717eef6f47c",
+              day: snapShot.val().day || "",
+              month: snapShot.val().month || "",
+              year: snapShot.val().year || "",
+              scope: snapShot.val().scope || "",
+              location: snapShot.val().location || "",
+              description: snapShot.val().description || "",
+              vacant: snapShot.val().vacant || "",
+              profilePhotoSrc:
+                snapShot.val().profilePhotoSrc ||
+                "https://firebasestorage.googleapis.com/v0/b/horizon-9d7e5.appspot.com/o/assents%2FPale%20Dots%20Profile%201x1%20II%20(1).png?alt=media&token=598343c0-66dc-4d5c-98c9-b717eef6f47c",
             })
           );
           window.location.href = "./main.html";
         }
-        console.log(snapShot);
       });
     });
   };
 
-  /* Signout */
-
+  // Signout
   const signout = () => {
-    console.log("hi");
     sessionStorage.clear();
     window.location.href = "./index.html";
   };
 
-  /* Start Call Functions */
-
+  /* Initialize */
   countriesList();
-
   setData();
 
-  /* End Call Functions */
-
-  /* Start Event listener */
-
+  /* Event Listeners */
   addVacantBtn.addEventListener("click", addVacantBtnHandler);
-
   saveBtn.addEventListener("click", onSave);
-
   signoutBtn.addEventListener("click", signout);
-
   profilePhotoInput.addEventListener("change", getFile);
-
   profileBtn.addEventListener("click", uploadImage);
-
-  /* End Event listener */
 });
+
+// Abdgit11l11

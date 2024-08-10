@@ -44,21 +44,25 @@ html {
     width: 100%;
   }
 }
+
 @media (min-width: 768px) and (max-width: 991px) {
   .container {
     width: 750px;
   }
 }
+
 @media (min-width: 992px) and (max-width: 1199px) {
   .container {
     width: 970px;
   }
 }
+
 @media (min-width: 1200px) {
   .container {
     width: 1170px;
   }
 }
+
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -84,6 +88,7 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background-color: var(--main-color);
 }
+
 @keyframes skew-effect {
   to {
     transform: translate(-30%) skew(10deg, 0);
@@ -93,6 +98,7 @@ html {
     -o-transform: translate(-30%) skew(10deg, 0);
   }
 }
+
 @keyframes skew-effect-2 {
   to {
     transform: translate(-30%) skew(0, 10deg);
@@ -102,22 +108,28 @@ html {
     -o-transform: translate(-30%) skew(0, 10deg);
   }
 }
+
 @keyframes opacity {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
 }
+
 @keyframes up_down {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(-50px);
     -webkit-transform: translateY(-50px);
     -moz-transform: translateY(-50px);
     -ms-transform: translateY(-50px);
     -o-transform: translateY(-50px);
   }
+
   50% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -126,39 +138,46 @@ html {
     -o-transform: translateY(0);
   }
 }
+
 /* Start Navbar */
 nav {
   background-color: #2784FC;
   box-shadow: 0 0 20px #7e7e7e;
 }
-nav > .container {
+
+nav>.container {
   display: flex;
   justify-content: space-between;
   background-color: #2784FC;
   max-height: 70px;
   gap: 2rem;
 }
-nav > .container .logo {
+
+nav>.container .logo {
   height: 70px;
   padding: 0.5rem;
 }
-nav > .container .logo > img {
+
+nav>.container .logo>img {
   height: 100%;
 }
-nav > .container > ul {
+
+nav>.container>ul {
   flex: 1;
   display: flex;
   justify-content: space-between;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
 }
-nav > .container > ul > ul {
+
+nav>.container>ul>ul {
   display: flex;
   gap: 1rem;
   height: 100%;
   align-items: center;
 }
-nav > .container > ul > ul li {
+
+nav>.container>ul>ul li {
   position: relative;
   height: 100%;
   display: flex;
@@ -166,7 +185,8 @@ nav > .container > ul > ul li {
   align-items: center;
   padding: 0.25rem;
 }
-nav > .container > ul > ul li::after {
+
+nav>.container>ul>ul li::after {
   content: "";
   height: 3px;
   width: 0;
@@ -185,28 +205,33 @@ nav > .container > ul > ul li::after {
   -ms-transition: 0.2s linear;
   -o-transition: 0.2s linear;
 }
-nav > .container > ul > ul li button {
+
+nav>.container>ul>ul li button {
   border: none;
   outline: none;
   background-color: transparent;
   color: white;
   cursor: pointer;
 }
-nav > .container > ul > ul li:hover::after {
+
+nav>.container>ul>ul li:hover::after {
   width: 100%;
 }
-nav > .container .icon-div {
+
+nav>.container .icon-div {
   display: flex;
   justify-content: center;
   align-items: center;
   display: none;
 }
-nav > .container .icon-div .icon-burger {
+
+nav>.container .icon-div .icon-burger {
   width: 35px;
   height: 20px;
   position: relative;
 }
-nav > .container .icon-div .icon-burger span {
+
+nav>.container .icon-div .icon-burger span {
   width: 100%;
   display: block;
   height: 3px;
@@ -219,34 +244,42 @@ nav > .container .icon-div .icon-burger span {
   -o-transition: all 0.5s;
   position: absolute;
 }
-nav > .container .icon-div .icon-burger span:first-child {
+
+nav>.container .icon-div .icon-burger span:first-child {
   top: 0;
 }
-nav > .container .icon-div .icon-burger span:last-child {
+
+nav>.container .icon-div .icon-burger span:last-child {
   top: 100%;
 }
-nav > .container .icon-div .icon-burger span:nth-child(2) {
+
+nav>.container .icon-div .icon-burger span:nth-child(2) {
   top: 50%;
 }
-nav > .container .icon-div .icon-burger.clicked span:last-child, nav > .container .icon-div .icon-burger.clicked span:first-child {
+
+nav>.container .icon-div .icon-burger.clicked span:last-child,
+nav>.container .icon-div .icon-burger.clicked span:first-child {
   top: 50%;
   background-color: #FFD42A;
 }
-nav > .container .icon-div .icon-burger.clicked span:first-child {
+
+nav>.container .icon-div .icon-burger.clicked span:first-child {
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   -o-transform: rotate(45deg);
 }
-nav > .container .icon-div .icon-burger.clicked span:last-child {
+
+nav>.container .icon-div .icon-burger.clicked span:last-child {
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
   -moz-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   -o-transform: rotate(-45deg);
 }
-nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
+
+nav>.container .icon-div .icon-burger.clicked span:nth-child(2) {
   opacity: 0;
 }
 
@@ -255,7 +288,8 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
     margin-bottom: 20px;
     align-items: center;
   }
-  nav .container > ul {
+
+  nav .container>ul {
     display: none;
     position: absolute;
     top: 70px;
@@ -266,15 +300,18 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
     margin: 0;
     padding: 20px;
   }
-  nav .container > ul > ul {
+
+  nav .container>ul>ul {
     display: flex;
     flex-direction: column;
     flex: 1;
   }
+
   nav .container .icon-div {
     display: block;
   }
 }
+
 /* End Navbar */
 /* Start Personal Data */
 .personal-data {
@@ -285,6 +322,7 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
   justify-content: center;
   align-items: center;
 }
+
 .personal-data::after {
   content: "";
   width: 300%;
@@ -307,6 +345,7 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
   -webkit-animation: skew-effect 8s infinite alternate;
   z-index: -1;
 }
+
 .personal-data .data-box {
   background-color: white;
   border: 1px solid #ccc;
@@ -317,11 +356,13 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
   -o-border-radius: 5px;
   display: flex;
 }
-.personal-data .data-box > div {
+
+.personal-data .data-box>div {
   flex: 1;
   padding: 1rem;
 }
-.personal-data .data-box > .image-holder {
+
+.personal-data .data-box>.image-holder {
   background-color: #2784FC;
   flex: 1;
   border-radius: 5px;
@@ -330,6 +371,7 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
 }
+
 .personal-data .data-box .profile {
   display: flex;
   align-items: center;
@@ -341,6 +383,7 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
   padding: 1rem;
   gap: 1rem;
 }
+
 .personal-data .data-box .profile .image-holder {
   position: relative;
   width: 150px;
@@ -354,11 +397,13 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
   box-shadow: 0 0 10px #2784FC inset;
   overflow: hidden;
 }
+
 .personal-data .data-box .profile .image-holder img {
   width: 100%;
   height: 100%;
   position: relative;
 }
+
 .personal-data .data-box .profile .image-holder .icon {
   position: absolute;
   left: 50%;
@@ -372,20 +417,24 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
   text-align: center;
   color: #2784FC;
 }
+
 .personal-data .data-box .profile .user-info {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-.personal-data .data-box .profile .user-info > div:not(:last-child) {
+
+.personal-data .data-box .profile .user-info>div:not(:last-child) {
   display: flex;
   font-size: 1.2rem;
 }
-.personal-data .data-box .profile .user-info > div:not(:last-child) label {
+
+.personal-data .data-box .profile .user-info>div:not(:last-child) label {
   color: #2784FC;
   cursor: pointer;
 }
-.personal-data .data-box .profile .user-info > div:not(:last-child) input {
+
+.personal-data .data-box .profile .user-info>div:not(:last-child) input {
   width: 300px;
   outline: none;
   border: none;
@@ -399,16 +448,20 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
   -ms-transition: 0.3s linear;
   -o-transition: 0.3s linear;
 }
-.personal-data .data-box .profile .user-info > div:not(:last-child) input:focus {
+
+.personal-data .data-box .profile .user-info>div:not(:last-child) input:focus {
   border-bottom: solid #2784FC 1px;
 }
-.personal-data .data-box .profile .user-info > div:not(:last-child):nth-child(2) input {
+
+.personal-data .data-box .profile .user-info>div:not(:last-child):nth-child(2) input {
   font-weight: normal;
 }
+
 .personal-data .data-box .profile .user-info .upload-image {
   text-align: center;
   display: flex;
 }
+
 .personal-data .data-box .profile .user-info .upload-image label {
   display: block;
   width: -moz-fit-content;
@@ -425,18 +478,21 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
   color: #2784FC;
   padding: 10px 20px;
 }
+
 .personal-data .data-box .profile .user-info .upload-image label.upload {
   pointer-events: none;
   background-color: #9e9e9e;
   color: #7e7e7e;
   border-color: #9e9e9e;
 }
+
 .personal-data .data-box .profile .user-info .upload-image label.upload.active {
   pointer-events: all;
   background-color: white;
   color: #2784FC;
   border-color: #2784FC;
 }
+
 .personal-data .data-box .profile .user-info .upload-image label:hover {
   background-color: #2784FC !important;
   color: white !important;
@@ -446,34 +502,43 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
   -ms-transition: 0.3s linear;
   -o-transition: 0.3s linear;
 }
+
 .personal-data .data-box .profile .user-info .upload-image label.clicked {
   background-color: #0059cb !important;
   color: white !important;
 }
+
 .personal-data .data-box .profile .user-info .upload-image input {
   display: none;
 }
+
 .personal-data .data-box .data {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid white;
 }
-.personal-data .data-box .data > div {
+
+.personal-data .data-box .data>div {
   display: flex;
   flex-direction: column;
   gap: 10px;
   width: 100%;
 }
-.personal-data .data-box .data > div > label:first-child {
+
+.personal-data .data-box .data>div>label:first-child {
   font-weight: bold;
   text-align: center;
   color: #2784FC;
 }
+
 .personal-data .data-box .data .birth .controls {
   display: flex;
   gap: 5px;
 }
-.personal-data .data-box .data .birth .controls > select {
+
+.personal-data .data-box .data .birth .controls>select {
   outline: none;
   border: solid 1px #ccc;
   border-left-color: transparent;
@@ -487,12 +552,15 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
   -ms-border-radius: 10px 2.5rem 2.5rem 10px;
   -o-border-radius: 10px 2.5rem 2.5rem 10px;
 }
+
 .personal-data .data-box .data .country {
   display: flex;
 }
+
 .personal-data .data-box .data .country .input {
   display: flex;
 }
+
 .personal-data .data-box .data .country .input input {
   outline: none;
   border: solid 1px #ccc;
@@ -506,9 +574,11 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
   color: #333;
   flex: 1;
 }
+
 .personal-data .data-box .data .nationality-experience {
   flex-direction: row;
 }
+
 .personal-data .data-box .data .nationality-experience .nationality,
 .personal-data .data-box .data .nationality-experience .experience {
   display: flex;
@@ -516,16 +586,19 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
   gap: 10px;
   flex: 1;
 }
-.personal-data .data-box .data .nationality-experience .nationality > label:first-child,
-.personal-data .data-box .data .nationality-experience .experience > label:first-child {
+
+.personal-data .data-box .data .nationality-experience .nationality>label:first-child,
+.personal-data .data-box .data .nationality-experience .experience>label:first-child {
   font-weight: bold;
   text-align: center;
   color: #2784FC;
 }
+
 .personal-data .data-box .data .nationality-experience .nationality .input,
 .personal-data .data-box .data .nationality-experience .experience .input {
   display: flex;
 }
+
 .personal-data .data-box .data .nationality-experience .nationality .input select,
 .personal-data .data-box .data .nationality-experience .experience .input select {
   outline: none;
@@ -541,10 +614,12 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
   -ms-border-radius: 10px 2.5rem 2.5rem 10px;
   -o-border-radius: 10px 2.5rem 2.5rem 10px;
 }
+
 .personal-data .data-box .data .button [type=button] {
   width: 200px;
   margin: 0 auto;
 }
+
 .personal-data .data-box .data [type=submit],
 .personal-data .data-box .data [type=reset],
 .personal-data .data-box .data [type=button] {
@@ -558,28 +633,34 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
   -o-border-radius: 2.5rem;
   padding: 0.5rem 1rem;
 }
+
 .personal-data .data-box .data [type=submit]:hover,
 .personal-data .data-box .data [type=reset]:hover,
 .personal-data .data-box .data [type=button]:hover {
   background-color: white;
   color: #2784FC;
 }
+
 .personal-data .data-box .form-2 {
   background-color: #2784FC;
   display: flex;
   flex-direction: column;
 }
+
 .personal-data .data-box .form-2 img {
   margin: 2rem auto;
 }
+
 .personal-data .data-box .form-2 label {
   color: white !important;
 }
+
 .personal-data .data-box .form-2 .skillsList {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
+
 .personal-data .data-box .form-2 input {
   border: solid 1px #ccc;
   padding: 0.5rem 1rem;
@@ -596,10 +677,12 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
   -o-transition: 0.3s linear;
   flex: 1;
 }
+
 .personal-data .data-box .form-2 input:focus {
   border-color: #2784FC;
   outline: none;
 }
+
 .personal-data .data-box .form-2 input.diseable {
   background-color: #ddd;
   color: #9e9e9e;
@@ -608,62 +691,155 @@ nav > .container .icon-div .icon-burger.clicked span:nth-child(2) {
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
-  .nav > .container {
+  .nav>.container {
     margin-bottom: 2rem;
   }
+
   .personal-data .container {
     display: flex;
     justify-content: center;
     align-items: center;
   }
+
   .personal-data .data-box {
     width: 500px;
     flex-direction: column;
     margin-bottom: 2rem;
     margin-top: 2rem;
   }
+
   .personal-data .data-box .form-2 {
     background-color: white;
   }
+
   .personal-data .data-box .form-2 img {
     display: none;
   }
 }
+
 @media (min-width: 768px) and (max-width: 991px) {
   .personal-data .container {
     display: flex;
     justify-content: center;
     align-items: center;
   }
+
   .personal-data .data-box {
     width: 500px;
     flex-direction: column;
     margin-bottom: 2rem;
     margin-top: 2rem;
   }
+
   .personal-data .data-box .form-2 {
     background-color: white;
   }
+
   .personal-data .data-box .form-2 img {
     display: none;
   }
 }
+
 @media (max-width: 767px) {
   .personal-data .container {
     display: flex;
     justify-content: center;
     align-items: center;
   }
+
   .personal-data .data-box {
     width: 500px;
     flex-direction: column;
     margin-bottom: 2rem;
   }
+
   .personal-data .data-box .form-2 {
     background-color: white;
   }
+
   .personal-data .data-box .form-2 img {
     display: none;
   }
 }
-/* End Personal Data *//*# sourceMappingURL=personal-data.css.map */
+
+textarea {
+  border: 1px solid rgb(204, 204, 204);
+  padding: 0.5rem 1rem;
+  margin: 0.7rem 0px;
+  border-radius: 2.5rem;
+  transition: 0.3s linear;
+  flex: 1 1 0%;
+  outline: none;
+  resize: none;
+  -webkit-transition: 0.3s linear;
+  -moz-transition: 0.3s linear;
+  -ms-transition: 0.3s linear;
+  -o-transition: 0.3s linear;
+}
+
+#addBlogBtn {
+  background-color: #2784FC;
+  outline: none;
+  border: solid 1px #ccc;
+  color: white;
+  cursor: pointer;
+  border-radius: 2.5rem;
+  -webkit-border-radius: 2.5rem;
+  -moz-border-radius: 2.5rem;
+  -ms-border-radius: 2.5rem;
+  -o-border-radius: 2.5rem;
+  padding: 0.5rem 1rem;
+  transition: .3s;
+  -webkit-transition: .3s;
+  -moz-transition: .3s;
+  -ms-transition: .3s;
+  -o-transition: .3s;
+}
+
+#addBlogBtn:hover {
+  color: #2784FC;
+  background-color: white;
+}
+
+.blog-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 10px;
+}
+
+.blog-section label {
+  font-weight: bold;
+  text-align: center
+}
+
+.blog {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.blog button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  border: none;
+  outline: none;
+  background: white;
+  cursor: pointer;
+  color: #2784FC;
+}
+
+#blogsList p {
+  background: white;
+  padding: 10px;
+  border-radius: 2.5rem;
+  flex: 1;
+  margin: 10px 0;
+}
+
+/* End Personal Data */
+/*# sourceMappingURL=personal-data.css.map */

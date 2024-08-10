@@ -1,5 +1,4 @@
 /* Import Firebase */
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
 import {
   getDatabase,
@@ -7,6 +6,7 @@ import {
   ref,
   child,
   get,
+  remove,
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
 
 const firebaseConfig = {
@@ -19,9 +19,11 @@ const firebaseConfig = {
   appId: "1:1010075013458:web:ec26bbd69fc1a2a34a2a8b",
 };
 
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const db = getDatabase();
 
 document.addEventListener("DOMContentLoaded", () => {
+  /* Variables */
   const imageName = document.querySelector(".image-name");
   const profilePhoto = document.querySelector(".profile-photo");
   const profilePhotoInput = document.getElementById("file");
@@ -43,12 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const jobInput = document.querySelector(".job input");
   const signoutBtn = document.querySelector('.log .link [type="button"]');
 
-  /* For Firebase */
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase();
-  const dbref = ref(db);
-
+  /* Company Data */
   let {
     name,
     email,
@@ -63,31 +60,28 @@ document.addEventListener("DOMContentLoaded", () => {
     profilePhotoSrc,
   } = JSON.parse(sessionStorage.getItem("user-info"));
 
-  // for Get Profile Photo
-
+  // For Get Profile Photo
   let fileItem;
   let fileName;
   let profilePhotoURL;
 
-  /*Functions*/
+  /* Functions */
 
   // Get Photo
-
   const getFile = (e) => {
     fileItem = e.target.files[0];
     fileName = fileItem.name;
     imageName.textContent = fileName;
-    profileBtn.classList.add('active');
+    profileBtn.classList.add("active");
   };
 
   // Upload Photo
-
   const uploadImage = (e) => {
-    let storageRef = firebase.storage().ref();
-    let imgaeRef = storageRef.child("profile-images/" + fileName);
-    let uploadTask = imgaeRef.put(fileItem);
+    const storageRef = firebase.storage().ref();
+    const imageRef = storageRef.child("profile-images/" + fileName);
+    const uploadTask = imageRef.put(fileItem);
     e.target.classList.remove("active");
-    imageName.textContent = '';
+    imageName.textContent = "";
     uploadTask.on(
       "state_changed",
       (snapShot) => {
@@ -99,7 +93,6 @@ document.addEventListener("DOMContentLoaded", () => {
       () => {
         uploadTask.snapshot.ref.getDownloadURL().then((url) => {
           console.log("URL", url);
-
           if (url !== "") {
             profilePhoto.setAttribute("src", url);
             profilePhotoURL = url;
@@ -109,12 +102,11 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   };
 
-  /* add Skill */
-
+  // Add Skill
   const addSkillBtnHandler = () => {
     const skillsInput = Array.from(skillsList.children);
     if (skillsInput.length >= 5) {
-      addSkillBtn.classList.add("diseable");
+      addSkillBtn.classList.add("disable");
       return;
     }
     const input = document.createElement("input");
@@ -122,25 +114,20 @@ document.addEventListener("DOMContentLoaded", () => {
     input.setAttribute("name", "skills");
     input.setAttribute("placeholder", "مهارتك");
     skillsList.appendChild(input);
-
   };
 
-  /* Validate Field */
-
+  // Validate Field
   const validateField = (field) => {
-    if (field.trim() == null) return false;
-    else if (field.trim().length <= 0) return false;
-    else return true;
+    return field.trim() !== "";
   };
 
-  /* Generate Countries List */
-
-  const constriesList = () => {
+  // Generate Countries List
+  const countriesList = () => {
     fetch("https://horizon-9d7e5-default-rtdb.firebaseio.com/counties.json")
-      .then((respone) => respone.json())
+      .then((response) => response.json())
       .then((data) => {
-        data.map((country) => {
-          let option = document.createElement("option");
+        data.forEach((country) => {
+          const option = document.createElement("option");
           option.value = country["nameAr"];
           option.textContent = country["nameAr"];
           dataList.appendChild(option);
@@ -148,8 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   };
 
-  /*Set Data in Form*/
-
+  // Set Data in Form
   const setData = () => {
     nameInput.value = name;
     emailInput.value = email;
@@ -162,8 +148,6 @@ document.addEventListener("DOMContentLoaded", () => {
     jobInput.value = job;
     profilePhoto.setAttribute("src", profilePhotoSrc);
 
-    // console.log(this)
-
     if (skills.length === 0) {
       const input = document.createElement("input");
       input.setAttribute("type", "text");
@@ -171,20 +155,19 @@ document.addEventListener("DOMContentLoaded", () => {
       input.setAttribute("placeholder", "مهارتك");
       skillsList.appendChild(input);
     } else {
-      for (let i = 0; i < skills.length; i++) {
+      skills.forEach((skill) => {
         const input = document.createElement("input");
         input.setAttribute("type", "text");
         input.setAttribute("name", "skills");
         input.setAttribute("placeholder", "مهارتك");
-        input.setAttribute("value", skills[i]);
+        input.setAttribute("value", skill);
         skillsList.appendChild(input);
-      }
+      });
     }
   };
 
-  /* Save Date */
-
-  let onSave = (e) => {
+  // Save Data
+  const onSave = (e) => {
     e.preventDefault();
     if (
       !validateField(nameInput.value) ||
@@ -194,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("يرجى ادخال الاسم او بلد الإقامة او الوظيفة");
       return;
     }
-    let skills = document.querySelectorAll(".skillsList input");
+    const skills = document.querySelectorAll(".skillsList input");
     const skillsValues = Array.from(skills)
       .map((skill) => skill.value)
       .filter((skill) => skill.trim() !== "");
@@ -213,63 +196,134 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     const { uid } = JSON.parse(sessionStorage.getItem("user-creds"));
     set(ref(db, "UsersAuthList/" + uid), info).then(() => {
-      get(child(dbref, "UsersAuthList/" + uid)).then((snapShot) => {
-        console.log(snapShot);
+      get(child(ref(db), "UsersAuthList/" + uid)).then((snapShot) => {
         if (snapShot.exists) {
           sessionStorage.setItem(
             "user-info",
             JSON.stringify({
               name: snapShot.val().username,
               email: snapShot.val().email,
-              day: snapShot.val().day ? snapShot.val().day : "",
-              month: snapShot.val().month ? snapShot.val().month : "",
-              year: snapShot.val().year ? snapShot.val().year : "",
-              country: snapShot.val().country ? snapShot.val().country : "",
-              gender: snapShot.val().gender ? snapShot.val().gender : "مخصص",
-              experience: snapShot.val().experience
-                ? snapShot.val().experience
-                : "",
-              job: snapShot.val().job ? snapShot.val().job : "",
-              skills: snapShot.val().skills ? snapShot.val().skills : "",
-              profilePhotoSrc: snapShot.val().profilePhotoSrc
-                ? snapShot.val().profilePhotoSrc
-                : 'https://firebasestorage.googleapis.com/v0/b/horizon-9d7e5.appspot.com/o/assents%2FPale%20Dots%20Profile%201x1%20II%20(1).png?alt=media&token=598343c0-66dc-4d5c-98c9-b717eef6f47c',
+              day: snapShot.val().day || "",
+              month: snapShot.val().month || "",
+              year: snapShot.val().year || "",
+              country: snapShot.val().country || "",
+              gender: snapShot.val().gender || "مخصص",
+              experience: snapShot.val().experience || "",
+              job: snapShot.val().job || "",
+              skills: snapShot.val().skills || "",
+              profilePhotoSrc:
+                snapShot.val().profilePhotoSrc ||
+                "https://firebasestorage.googleapis.com/v0/b/horizon-9d7e5.appspot.com/o/assents%2FPale%20Dots%20Profile%201x1%20II%20(1).png?alt=media&token=598343c0-66dc-4d5c-98c9-b717eef6f47c",
             })
           );
           window.location.href = "./main.html";
         }
-        console.log(snapShot);
       });
     });
   };
 
-  /* Signout */
-
+  // Signout
   const signout = () => {
-    console.log("hi");
     sessionStorage.clear();
     window.location.href = "./index.html";
   };
 
-  /* Start Call Functions */
-
-  constriesList();
-
+  /* Initialize */
+  countriesList();
   setData();
 
-  /* End Call Functions */
-
-  /* Start Event listener */
-
+  /* Event Listeners */
   addSkillBtn.addEventListener("click", addSkillBtnHandler);
-
   saveBtn.addEventListener("click", onSave);
-
   signoutBtn.addEventListener("click", signout);
-
   profilePhotoInput.addEventListener("change", getFile);
-
   profileBtn.addEventListener("click", uploadImage);
 
-  /* End Event listener */
+  // Existing code...
+
+  const addBlogBtn = document.getElementById("addBlogBtn");
+  const blogContent = document.getElementById("blogContent");
+  const blogsList = document.getElementById("blogsList");
+
+  // Function to add blog
+  const addBlog = (e) => {
+    e.preventDefault()
+
+    const content = blogContent.value.trim();
+    if (content === "") {
+      alert("Blog content cannot be empty");
+      return;
+    }
+
+    const blogId = Date.now().toString();
+    const blogData = {
+      id: blogId,
+      content: content,
+    };
+
+    const { uid } = JSON.parse(sessionStorage.getItem("user-creds"));
+    set(ref(db, "UsersAuthList/" + uid + "/blogs/" + blogId), blogData).then(
+      () => {
+        displayBlog(blogData);
+        blogContent.value = "";
+      }
+    );
+  };
+
+  // Function to display blog
+  const displayBlog = (blog) => {
+    const blogElement = document.createElement("div");
+    blogElement.classList.add("blog");
+    blogElement.setAttribute("data-id", blog.id);
+
+    const blogContent = document.createElement("p");
+    blogContent.textContent = blog.content;
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "حذف";
+    deleteBtn.addEventListener("click", () => deleteBlog(blog.id));
+
+    blogElement.appendChild(blogContent);
+    blogElement.appendChild(deleteBtn);
+    blogsList.appendChild(blogElement);
+  };
+
+  // Function to delete blog
+
+  const deleteBlog = (blogId) => {
+    const { uid } = JSON.parse(sessionStorage.getItem("user-creds"));
+    const blogRef = ref(db, "UsersAuthList/" + uid + "/blogs/" + blogId);
+    remove(blogRef)
+      .then(() => {
+        const blogElement = document.querySelector(
+          `.blog[data-id="${blogId}"]`
+        );
+        if (blogElement) {
+          blogsList.removeChild(blogElement);
+        }
+      })
+      .catch((error) => {
+        console.error("Error removing blog: ", error);
+      });
+  };
+
+  // Load existing blogs
+  const loadBlogs = () => {
+    const { uid } = JSON.parse(sessionStorage.getItem("user-creds"));
+    get(child(ref(db), "UsersAuthList/" + uid + "/blogs")).then((snapshot) => {
+      if (snapshot.exists()) {
+        const blogs = snapshot.val();
+        for (const blogId in blogs) {
+          displayBlog(blogs[blogId]);
+        }
+      }
+      
+    });
+  };
+
+  // Event listener for adding blog
+  addBlogBtn.addEventListener("click", addBlog);
+
+  // Load blogs on page load
+  loadBlogs();
 });

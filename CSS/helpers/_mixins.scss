@@ -1,0 +1,236 @@
+// import colors
+@use "../sass/variables/colors" as *;
+
+// KeyFrames prifixes
+
+@mixin keyF($anim-name) {
+  @-webkit-keyframes #{$anim-name} {
+    @content;
+  }
+  @keyframes #{$anim-name} {
+    @content;
+  }
+}
+
+// Element Centring
+
+@mixin centering($method) {
+  @if $method == flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  } @else if $method == positionX {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+  } @else if $method == position {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+  } @else if $method == positionY {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+}
+}
+
+// Breakpoints
+
+@mixin breakpoints($point) {
+  @if $point == mobile {
+    @media (max-width: 767px) {
+      @content;
+    }
+  } @else if $point == small {
+    @media (min-width: 768px) and (max-width: 991px) {
+      @content;
+    }
+  } @else if $point == medium {
+    @media (min-width: 992px) and (max-width: 1199px) {
+      @content;
+    }
+  } @else if $point == large {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  }
+}
+
+// Transtion
+
+@mixin transtion($time, $mode) {
+  transition: $time $mode;
+  -webkit-transition: $time $mode;
+  -moz-transition: $time $mode;
+  -ms-transition: $time $mode;
+  -o-transition: $time $mode;
+}
+
+// Border Radius
+
+@mixin border-radius($model) {
+  @if $model == normal {
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+  } @else if $model == cover {
+    border-radius: 2.5rem;
+    -webkit-border-radius: 2.5rem;
+    -moz-border-radius: 2.5rem;
+    -ms-border-radius: 2.5rem;
+    -o-border-radius: 2.5rem;
+  } @else if ($model == circle) {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+  } @else {
+    border-radius: $model;
+    -webkit-border-radius: $model;
+    -moz-border-radius: $model;
+    -ms-border-radius: $model;
+    -o-border-radius: $model;
+  }
+}
+
+// components input
+
+@mixin inputs() {
+  width: 100%;
+  input {
+    border: solid 1px $border-color;
+    padding: 0.5rem 1rem;
+    margin: 0.7rem 0;
+    @include border-radius(cover);
+    width: 100%;
+    @include transtion(0.3s, linear);
+    &:focus {
+      border: {
+        color: $main;
+      }
+      outline: none;
+    }
+  }
+  .button {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1rem;
+    > input {
+      background-color: $main;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  }
+}
+
+// Circle
+
+@mixin circle($width) {
+  width: $width;
+  height: $width;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+// Burger Icon
+
+@mixin burger-icon($color, $colorX) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .icon-burger {
+    width: 35px;
+    height: 20px;
+    position: relative;
+    span {
+      width: 100%;
+      display: block;
+      height: 3px;
+      background-color: $color;
+      margin-bottom: 7px;
+      transition: all 0.5s;
+      -webkit-transition: all 0.5s;
+      -moz-transition: all 0.5s;
+      -ms-transition: all 0.5s;
+      -o-transition: all 0.5s;
+      position: absolute;
+      &:first-child {
+        top: 0;
+      }
+      &:last-child {
+        top: 100%;
+      }
+      &:nth-child(2) {
+        top: 50%;
+      }
+    }
+    &.clicked span {
+      &:last-child,
+      &:first-child {
+        top: 50%;
+        background-color: $colorX;
+      }
+      &:first-child {
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+      }
+      &:last-child {
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+      }
+      &:nth-child(2) {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+@mixin wave($color, $top, $animation, $mode) {
+  content: "";
+  width: 300%;
+  height: 100%;
+  background-color: $color;
+  position: absolute;
+  top: $top;
+  left: 50%;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  transform: translateX(-50%) skew(0, -10deg);
+  -webkit-transform: translateX(-50%) skew(0, -10deg);
+  -moz-transform: translateX(-50%) skew(0, -10deg);
+  -ms-transform: translateX(-50%) skew(0, -10deg);
+  -o-transform: translateX(-50%) skew(0, -10deg);
+  animation: $animation 8s infinite alternate;
+  -webkit-animation: $animation 8s infinite alternate;
+  z-index: -1;
+}

@@ -196,7 +196,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 JSON.stringify(credentails.user)
               );
               sessionStorage.setItem("user-state", "person");
-
               window.location.href = "./main.html";
             }
             console.log(snapShot);
@@ -211,9 +210,4 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   signInForm.addEventListener("submit", SignInUser);
-
-  // Date A live
-  // Sword Art online
-  // Musaigen no phantom world
-  // Spiggan
 });

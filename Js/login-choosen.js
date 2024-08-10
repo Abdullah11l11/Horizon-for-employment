@@ -1,17 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
-  /* Variable */
+  /* Variables */
+  const children = document.querySelectorAll(".main .parent .child");
 
-  const child = document.querySelectorAll(".main .parent .child");
-
-  /* Start Event listener */
-  
-  child[0].addEventListener("click", () => {
-    window.location.href = "./register-person.html";
+  /* Event Listeners */
+  children.forEach((child, index) => {
+    child.addEventListener("click", () => {
+      const urls = ["./register-person.html", "./register-company.html"];
+      if (index < urls.length) {
+        window.location.href = urls[index];
+      }
+    });
   });
-  child[1].addEventListener(
-    "click",
-    () => (window.location.href = "./register-company.html")
-  );
-  
-  /* End Event listener */
 });

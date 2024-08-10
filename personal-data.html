@@ -17,7 +17,9 @@
   <nav>
     <div class="container">
       <div class="logo">
-        <img src="https://firebasestorage.googleapis.com/v0/b/horizon-9d7e5.appspot.com/o/assents%2FLogo-ar.png?alt=media&token=4e4749e7-8b58-4505-b73e-0da9c96024be" alt="logo">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/horizon-9d7e5.appspot.com/o/assents%2FLogo-ar.png?alt=media&token=4e4749e7-8b58-4505-b73e-0da9c96024be"
+          alt="logo">
       </div>
       <ul class="navbar">
         <ul class="link">
@@ -25,10 +27,10 @@
             <a href="./main.html">الرئيسية</a>
           </li>
           <li class="link">
-            <a href="./main.html#jobs">البحث عن موظفين</a>
+            <a href="#" class="data-search">البحث عن موظفين</a>
           </li>
           <li class="link">
-            <a href="./personal-data.html"> سيرتك الذاتية</a>
+            <a href="#" class="data-of-user"></a>
           </li>
         </ul>
         <ul class="log">
@@ -46,7 +48,7 @@
       </div>
     </div>
   </nav>
-
+  
   <div class="personal-data">
     <div class="container">
       <div class="data-box">
@@ -286,7 +288,6 @@
           </from>
         </div>
         <div class="form-2">
-          <img src="https://firebasestorage.googleapis.com/v0/b/horizon-9d7e5.appspot.com/o/assents%2FLogo-ar.png?alt=media&token=4e4749e7-8b58-4505-b73e-0da9c96024be" alt="">
           <form action="POST" class="data">
             <div class="job">
               <label for="job">المسمى الوظيفي</label>
@@ -302,6 +303,13 @@
               <input type="button" value="تم" />
             </div>
           </form>
+          <div class="blog-section">
+            <label for="blogContent">اضافة منشور</label>
+            <textarea id="blogContent"></textarea>
+            <button role="button" id="addBlogBtn">اضف</button>
+            <label>المنشورات الحالية</label>
+            <div id="blogsList"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -312,5 +320,6 @@
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
 <script src="./Js/all.min.js"></script>
 <script src="./Js/personalData.js" type="module"></script>
+<script src="./Js/index.js" type="module"></script> 
 
 </html>
