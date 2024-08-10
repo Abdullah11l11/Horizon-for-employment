@@ -8,6 +8,12 @@ import {
   get,
   remove,
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+import {
+  getStorage,
+  ref as storageRef,
+  uploadBytes,
+  getDownloadURL,
+} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyADEmscq_IJwgregiKOgC0BJY0kTkWkj0Q",
@@ -21,6 +27,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
+const storage = getStorage(app);
 
 document.addEventListener("DOMContentLoaded", () => {
   /* Variables */
@@ -84,15 +91,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     uploadTask
       .then((snapshot) => {
-        getDownloadURL(snapshot.ref).then((url) => {
-          console.log("URL", url);
-          if (url !== "") {
-            console.log(profilePhoto);
-            profilePhoto.setAttribute("src", url);
-            profilePhotoURL = url;
-            console.log(profilePhoto);
-          }
-        });
+        return getDownloadURL(snapshot.ref);
+      })
+      .then((url) => {
+        console.log("URL", url);
+        if (url) {
+          profilePhoto.setAttribute("src", url);
+          profilePhotoURL = url;
+          console.log("Profile photo updated:", profilePhoto);
+        }
       })
       .catch((error) => {
         console.log("Error is ", error);
@@ -162,7 +169,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   };
-
   // Save Data
   const onSave = (e) => {
     e.preventDefault();
@@ -244,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to add blog
   const addBlog = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     const content = blogContent.value.trim();
     if (content === "") {

@@ -88,15 +88,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     uploadTask
       .then((snapshot) => {
-        getDownloadURL(snapshot.ref).then((url) => {
-          console.log("URL", url);
-          if (url !== "") {
-            console.log(profilePhoto);
-            profilePhoto.setAttribute("src", url);
-            profilePhotoURL = url;
-            console.log(profilePhoto);
-          }
-        });
+        return getDownloadURL(snapshot.ref);
+      })
+      .then((url) => {
+        console.log("URL", url);
+        if (url) {
+          profilePhoto.setAttribute("src", url);
+          profilePhotoURL = url;
+          console.log("Profile photo updated:", profilePhoto);
+        }
       })
       .catch((error) => {
         console.log("Error is ", error);
@@ -232,5 +232,3 @@ document.addEventListener("DOMContentLoaded", () => {
   profilePhotoInput.addEventListener("change", getFile);
   profileBtn.addEventListener("click", uploadImage);
 });
-
-// Abdgit11l11
