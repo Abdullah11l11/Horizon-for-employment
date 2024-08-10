@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
       person.addEventListener("click", (event) => {
         const companyData = event.target.closest(".company").dataset.company;
         sessionStorage.setItem("selectedCompany", companyData);
-        location.replace("/company-profile.html");
+        window.location.replace = "/company-profile.html";
       });
     });
   };
