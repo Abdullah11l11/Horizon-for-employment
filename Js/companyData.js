@@ -81,27 +81,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Upload Photo
   const uploadImage = (e) => {
-    const imageRef = storageRef(storage, "profile-images/" + fileName);
-    const uploadTask = uploadBytes(imageRef, fileItem);
-
+    const storageRef = firebase.storage().ref();
+    const imageRef = storageRef.child("profile-images/" + fileName);
+    const uploadTask = imageRef.put(fileItem);
     e.target.classList.remove("active");
     imageName.textContent = "";
-
-    uploadTask
-      .then((snapshot) => {
-        getDownloadURL(snapshot.ref).then((url) => {
+    uploadTask.on(
+      "state_changed",
+      (snapShot) => {
+        console.log(snapShot);
+      },
+      (error) => {
+        console.log("Error is ", error);
+      },
+      () => {
+        uploadTask.snapshot.ref.getDownloadURL().then((url) => {
           console.log("URL", url);
           if (url !== "") {
-            console.log(profilePhoto);
             profilePhoto.setAttribute("src", url);
             profilePhotoURL = url;
-            console.log(profilePhoto);
           }
         });
-      })
-      .catch((error) => {
-        console.log("Error is ", error);
-      });
+      }
+    );
   };
 
   // Add Vacant
