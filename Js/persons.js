@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
         person.addEventListener("click", () => {
           const user = users[index];
           sessionStorage.setItem("selectedUser", JSON.stringify(user));
-          window.location.href = "/person-profile.html";
+          window.location.href = "./person-profile.html";
         });
       });
 
