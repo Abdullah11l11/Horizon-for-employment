@@ -715,6 +715,9 @@ nav>.container .icon-div .icon-burger.clicked span:nth-child(2) {
   .personal-data .data-box .form-2 img {
     display: none;
   }
+  .personal-data .data-box .form-2 label {
+    color: #2784FC !important;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
@@ -738,6 +741,9 @@ nav>.container .icon-div .icon-burger.clicked span:nth-child(2) {
   .personal-data .data-box .form-2 img {
     display: none;
   }
+  .personal-data .data-box .form-2 label {
+    color: #2784FC !important;
+  }
 }
 
 @media (max-width: 767px) {
@@ -760,6 +766,10 @@ nav>.container .icon-div .icon-burger.clicked span:nth-child(2) {
   .personal-data .data-box .form-2 img {
     display: none;
   }
+  .personal-data .data-box .form-2 label {
+    color: #2784FC !important;
+  }
+  
 }
 
 textarea {
